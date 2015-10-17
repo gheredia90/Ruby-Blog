@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Blog
 
 	def initialize(posts)
@@ -42,20 +44,44 @@ class Blog
 
 		current_page = 1
 
-		create_front_page(@posts, current_page)
+		while(true)
+
+			create_front_page(@posts, current_page)
+
+	        for i in 1..num_pages
+	        	if i == current_page 
+	        		print "#{i} ".red
+	        	else
+	        		print "#{i} "
+	        	end	
+	        	
+	        end	
+	        puts ""
+
+			current_page = navigate(current_page, num_pages)
+		end	
 		
 	end	
 
-	def navigate
+	def navigate(current_page, num_pages)
 		print "> "
 		user_input = gets.chomp
 		if user_input == "next"
 			current_page += 1
+			if current_page > num_pages
+				current_page = 1
+			end	
+			
 		elsif user_input == "prev"
 			current_page -= 1
+			if current_page == 0
+				current_page = num_pages
+			end	
+
 		else
 
 		end	
+		current_page
 	end			
 end
 
