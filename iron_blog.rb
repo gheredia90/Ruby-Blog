@@ -9,9 +9,15 @@ class Blog
 		@posts.push(post)
 	end	
 
-	def create_front_page
+	def create_front_page(posts, current_page)
 
-		@posts.each do |post|
+		current_page -= 1
+
+		posts_current_page = posts.slice(0 + 3*current_page, 3)
+
+
+
+		posts_current_page.each do |post|
 
 			if post.sponsored
 				puts "****** #{post.title} ******"
@@ -35,8 +41,22 @@ class Blog
 		end
 
 		current_page = 1
+
+		create_front_page(@posts, current_page)
 		
 	end	
+
+	def navigate
+		print "> "
+		user_input = gets.chomp
+		if user_input == "next"
+			current_page += 1
+		elsif user_input == "prev"
+			current_page -= 1
+		else
+
+		end	
+	end			
 end
 
 
@@ -66,4 +86,4 @@ posts = [
 		]
 
 blog = Blog.new(posts)
-blog.create_front_page
+blog.publish_front_page 
